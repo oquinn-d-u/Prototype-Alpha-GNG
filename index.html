@@ -215,7 +215,7 @@
             
             var api = new cloudmersiveImageApiClient.FaceApi()
             
-            var imageBytes = fs.readFileSync('C:\Users\Derek\Code-repository\Prototype Alpha-GNG\assets\img');
+            var imageBytes = fs.readFileSync('C:\Users\Derek\Code-repository\Prototype Alpha-GNG\assets\img\bigman.png');
             
             var callback = function (error, data, response) {
                 if (error) {
@@ -256,49 +256,74 @@
             });
          </script>
 
-<script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js">
-                        fileSelector.onchange = () => {
 
-                    var file = fileSelector.files[0]
+<style>
+    body{
+        padding: 0px 100px;
+        font-family: sans-serif;
+    }
+    .container{
+        margin-top: 50px;
+    }
+    .upper div{
+        display: inline;
+        margin-left: 100px;
+        white-space: pre;
+    }
+    .bottom{
+        margin-top: 30px;
+        display: flex;
+    }
+    .bottom div{
+        flex: 1;
+        border: 1px solid rgb(118, 118, 118);
+        height: 400px;
+        margin: 10px;
+    }
+    .bottom div img{
+        max-width: calc(100% - 20px);
+        max-height: calc(100% - 20px);
+        margin: 10px;
+    }
+    .bottom div textarea{
+        resize: none;
+        width: calc(100% - 21px);
+        height: calc(100% - 21px);
+        padding: 10px;
+        font-size: 20px;
+        outline: none;
+        border: none;
+    }
+    .bottom div:first-child{
+        margin-left: 0px;
+        -webkit-box-align: center;
+        -webkit-box-pack: center;
+        display: -webkit-box;
+    }
+    .bottom div:last-child{
+        margin-right: 0px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="upper">
+        <input type="file">
+        <button>Start</button>
+        <div class="progress"></div>
+    </div>
+    <div class="bottom">
+        <div>
+            <img src="">
+        </div>
+        <div>
+            <textarea placeholder="text"></textarea>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
+<script src="script.js"></script>
 
-                    var imgUrl = window.URL.createObjectURL(new Blob([file], { type: 'image/jpg' }))
-
-                    img.src = imgUrl
-
-                    }
-
-                    start.onclick = () => {
-
-textarea.innerHTML = ''
-
-const rec = new Tesseract.TesseractWorker();
-
-rec.recognize(fileSelector.files[0])
-
-    .progress(function (response) {
-
-        if(response.status == 'recognizing text'){
-
-            progress.innerHTML = response.status + '   ' + response.progress
-
-        }else{
-
-            progress.innerHTML = response.status
-
-        }
-
-    })
-
-    .then(function (data) {
-
-        textarea.innerHTML = data.text
-
-        progress.innerHTML = "Done"
-
-    })
-
-}
-</script>
    
         <!-- Footer-->
         <footer class="footer text-center">
