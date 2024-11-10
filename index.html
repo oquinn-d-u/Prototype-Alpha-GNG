@@ -3,6 +3,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.cloudmersive.com/jsclient/cloudmersive-validate-client.js"></script>
+
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -65,7 +67,9 @@
             </div>
 
         </header>
+
         
+
          <!-- INTERACTABLE GOOGLE MAP-->
          <script>
             async function init() {
@@ -174,8 +178,128 @@
             </div>
         </section>
 
-       
+        <!--Cloudmersive API Check-->
+        <script>
+        var defaultClient = cloudmersiveValidateApiClient.ApiClient.instance;
+
+            // Configure API key authorization: Apikey
+            var Apikey = defaultClient.authentications['Apikey'];
+            Apikey.apiKey = "67463310-0686-4e47-b3b0-18eb6868bcc0"
+            
+            var api = new cloudmersiveValidateApiClient.DomainApi()
+            
+            var domain = "cloudmersive.com"; // {String} Domain name to check, for example \"cloudmersive.com\".  The input is a string so be sure to enclose it in double-quotes.
+            
+            
+            var callback = function (error, data, response) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log('API called successfully. Returned data: ' + data);
+                }
+            };
+            
+            api.domainCheck(domain, callback);</script>
+
+            
+           
+
+        
+        <!--CLOUDMERSIVE IMAGE RECOGNITION-->
+        <script src="https://cdn.cloudmersive.com/jsclient/cloudmersive-image-client.js">
+        var defaultClient = cloudmersiveImageApiClient.ApiClient.instance;
+        
+            // Configure API key authorization: Apikey
+            var Apikey = defaultClient.authentications['Apikey'];
+            Apikey.apiKey = "67463310-0686-4e47-b3b0-18eb6868bcc0"
+            
+            var api = new cloudmersiveImageApiClient.FaceApi()
+            
+            var imageBytes = fs.readFileSync('C:\Users\Derek\Code-repository\Prototype Alpha-GNG\assets\img');
+            
+            var callback = function (error, data, response) {
+                if (error) {
+                    console.error(error);
+                    res.end('Error\n');
+                } else {
+                    console.log('API called successfully.');
+            
+                    res.writeHead(200, { 'Content-Type': 'image/png' });
+                    res.end(data, 'binary');
+            
+                    
+                }
+            };
      
+     api.faceCropFirst( Buffer.from(imageBytes.buffer), callback);
+    
+    
+                var form = new FormData();
+            form.append("imageFile", fileInput.files[0], "file");
+
+            var settings = {
+                "url": "https://api.cloudmersive.com/image/recognize/describe",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "multipart/form-data",
+                    "Apikey": "YOUR-API-KEY-HERE"
+                },
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+         </script>
+
+<script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js">
+                        fileSelector.onchange = () => {
+
+                    var file = fileSelector.files[0]
+
+                    var imgUrl = window.URL.createObjectURL(new Blob([file], { type: 'image/jpg' }))
+
+                    img.src = imgUrl
+
+                    }
+
+                    start.onclick = () => {
+
+textarea.innerHTML = ''
+
+const rec = new Tesseract.TesseractWorker();
+
+rec.recognize(fileSelector.files[0])
+
+    .progress(function (response) {
+
+        if(response.status == 'recognizing text'){
+
+            progress.innerHTML = response.status + '   ' + response.progress
+
+        }else{
+
+            progress.innerHTML = response.status
+
+        }
+
+    })
+
+    .then(function (data) {
+
+        textarea.innerHTML = data.text
+
+        progress.innerHTML = "Done"
+
+    })
+
+}
+</script>
+   
         <!-- Footer-->
         <footer class="footer text-center">
             <div class="container px-4 px-lg-5">
@@ -197,6 +321,7 @@
         <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
