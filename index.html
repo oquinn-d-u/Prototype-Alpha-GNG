@@ -259,17 +259,13 @@
 
 <style>
     body{
-        padding: 0px 100px;
+       
         font-family: sans-serif;
     }
     .container{
         margin-top: 50px;
     }
-    .upper div{
-        display: inline;
-        margin-left: 100px;
-        white-space: pre;
-    }
+    
     .bottom{
         margin-top: 30px;
         display: flex;
@@ -308,8 +304,8 @@
 <body>
 <div class="container">
     <div class="upper">
-        <input type="file">
-        <button>Start</button>
+        <input class="btn btn-secondary btn-xl" type="file">
+        <button class="btn btn-dark btn-xl">Start</button>
         <div class="progress"></div>
     </div>
     <div class="bottom">
@@ -317,7 +313,7 @@
             <img src="">
         </div>
         <div>
-            <textarea placeholder="text"></textarea>
+            <textarea placeholder="Plaintext of image will appear here"></textarea>
         </div>
     </div>
 </div>
